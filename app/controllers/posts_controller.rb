@@ -17,8 +17,10 @@ class PostsController < ApplicationController
   end
 
   # GET /posts/1/edit
-  def edit
-  end
+    def edit
+      @post = Post.find(params[:id])
+   end
+  
 
   # POST /posts or /posts.json
   def create
@@ -40,6 +42,9 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
+        # format.turbo_stream do
+        #   render turbo_stream: turbo_stream.redirect(post_url(@post)) 
+        # end
         format.html { redirect_to post_url(@post), notice: "Post was successfully updated." }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -69,4 +74,4 @@ class PostsController < ApplicationController
     def post_params
       params.require(:post).permit(:body, :likes)
     end
-end
+  end
